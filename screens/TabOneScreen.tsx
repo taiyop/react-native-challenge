@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { TextInput, StyleSheet } from 'react-native';
+import { Button, TextInput, StyleSheet, InputAccessoryView } from 'react-native';
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions'
 
@@ -37,6 +37,9 @@ let token = "no token";
 
 export default function TabOneScreen() {
   const [text, setText] = useState('');
+
+  const inputAccessoryViewID = 'uniqueID';
+  const initialText = 'Placeholder Text';
   return (
     <View style={styles.container}>
       <TextInput
@@ -44,7 +47,14 @@ export default function TabOneScreen() {
         placeholder="Type here!"
         onChangeText={text => setText(text)}
         defaultValue={text}
+        inputAccessoryViewID={inputAccessoryViewID}
       />
+      <InputAccessoryView nativeID={inputAccessoryViewID}>
+        <Button
+          onPress={() => setText(initialText)}
+          title="Reset Text"
+        />
+      </InputAccessoryView>
       <Text style={styles.title}>Tab One</Text>
       <Text>{ text }</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
